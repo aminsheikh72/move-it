@@ -1,12 +1,14 @@
 import axios from "axios"
 
+const api_url = "https://move-it-backend-hnht.onrender.com"
+
 const getUsers=async(token)=>{
     const options = {
         headers : {
             authorization : `Bearer ${token}`
         }
     }
-    const response = await axios.get('/api/admin/get-users',options)   
+    const response = await axios.get(api_url +'/api/admin/get-users',options)   
     return response.data
 }
 const getBookings=async(token)=>{
@@ -15,7 +17,7 @@ const options ={
         authorization : `Bearer ${token}`
     }
 }
-const response = await axios.get('/api/admin/get-bookings',options)
+const response = await axios.get(api_url +'/api/admin/get-bookings',options)
 return response.data
 
 }
@@ -25,7 +27,7 @@ const options ={
         authorization : `Bearer ${token}`
     }
 }
-const response = await axios.get('/api/admin/get-vehicles',options)
+const response = await axios.get(api_url +'/api/admin/get-vehicles',options)
 return response.data
 
 }
@@ -35,7 +37,7 @@ const options ={
         authorization : `Bearer ${token}`
     }
 }
-const response = await axios.get('/api/admin/comments',options)
+const response = await axios.get(api_url +'/api/admin/comments',options)
 
 return response.data
 
@@ -48,7 +50,7 @@ const options ={
     }
 }
 const{bookingId,status}=formData
-const response = await axios.put(`/api/admin/booking/${bookingId}`,{status},options)
+const response = await axios.put(`${api_url}/api/admin/booking/${bookingId}`,{status},options)
 return response.data
 }
 
@@ -59,7 +61,7 @@ const options ={
     }
 }
 
-const response = await axios.post('/api/admin/add-vehicle',formData,options)
+const response = await axios.post(api_url +'/api/admin/add-vehicle',formData,options)
 return response.data
 
 }
@@ -70,7 +72,7 @@ const options ={
         authorization : `Bearer ${token}`
     }
 }
-const response = await axios.delete(`/api/admin/remove-vehicle/${id}`,options)
+const response = await axios.delete(`${api_url}/api/admin/remove-vehicle/${id}`,options)
 return response.data
 
 }
@@ -82,7 +84,7 @@ const options ={
     }
 }
 
-const response = await axios.put(`/api/admin/update-vehicle/${formData._id}`,formData,options)
+const response = await axios.put(`${api_url}/api/admin/update-vehicle/${formData._id}`,formData,options)
 return response.data
 
 }

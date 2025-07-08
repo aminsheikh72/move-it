@@ -1,7 +1,8 @@
 import axios from "axios"
 
+const api_url = "https://move-it-backend-hnht.onrender.com"
 const getUserSideVehicles=async()=>{
-    const response = await axios.get('/api/vehicle')
+    const response = await axios.get(api_url +'/api/vehicle')
     
     return response.data
 }
@@ -11,7 +12,7 @@ const getMyBooking=async(token,uid)=>{
         authorization : `Bearer ${token}`
     }
 }
-    const response = await axios.get(`/api/booking/${uid}`,options)
+    const response = await axios.get(`${api_url}/api/booking/${uid}`,options)
     return response.data
 }
 const getCommentsByUser = async (token, bid) => {
@@ -20,7 +21,7 @@ const getCommentsByUser = async (token, bid) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const response = await axios.get(`/api/booking/${bid}/comment`, options);
+  const response = await axios.get(`${api_url}/api/booking/${bid}/comment`, options);
   return { bookingId: bid, comments: response.data }; //  wrap with bookingId
 };
 
@@ -31,7 +32,7 @@ const options ={
         authorization : `Bearer ${token}`
     }
 }
-const response = await axios.post(`/api/booking/${formData.id}`,formData.bookingData,options)
+const response = await axios.post(`${api_url}/api/booking/${formData.id}`,formData.bookingData,options)
 return response.data
 
 }
@@ -43,7 +44,7 @@ const cancelBookingByUser = async (token, bid) => {
     },
   };
 
-  const response = await axios.put(`/api/booking/${bid}`, {}, options);
+  const response = await axios.put(`${api_url}/api/booking/${bid}`, {}, options);
   // console.log(response.data);
   return response.data;
 };
@@ -56,7 +57,7 @@ const addComment = async (token, bookingId, text) => {
     },
   };
   const response = await axios.post(
-    `/api/booking/${bookingId}/comment`,
+    `${api_url}/api/booking/${bookingId}/comment`,
     { text },
     options
   );
