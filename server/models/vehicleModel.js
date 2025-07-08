@@ -14,7 +14,7 @@ const vehicleSchema= new mongoose.Schema({
         required : true
     },
     capacity:{
-        type : Number,
+        type : Number ,
         required : true
     },
     image:{
@@ -27,7 +27,8 @@ const vehicleSchema= new mongoose.Schema({
         unique :  true
     },
     isAvailable:{
-        type : Boolean,
+        type : String,
+        enum : ["available","unavailable"],
         required : true
     },
 },{

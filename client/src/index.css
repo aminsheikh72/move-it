@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* *{
+  border: 1px solid red;
+} */
+:root {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  @apply bg-gray-900 text-white;
+}
+
+/* Custom Form Styles */
+.input-field {
+  @apply w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 
+         text-white placeholder-gray-400 focus:outline-none focus:ring-2
+         focus:ring-fuchsia-500 focus:border-transparent transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-fuchsia-600 text-white font-semibold py-3 px-6 rounded-lg
+         hover:bg-fuchsia-700 transition-all duration-200 
+         focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:ring-opacity-50;
+}
+
+.btn-secondary {
+  @apply bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg
+         hover:bg-gray-700 transition-all duration-200 border border-gray-700
+         focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50;
+}
+
+.vehicle-card {
+  @apply bg-gray-800 rounded-xl p-6 cursor-pointer
+         hover:shadow-lg transition-all duration-300
+         border border-gray-700 hover:border-fuchsia-500;
+}
+
+.vehicle-card.recommended {
+  @apply border-fuchsia-500 bg-gradient-to-br from-gray-800 to-gray-900;
+}
+
+/* Navbar styles */
+.nav-link {
+  @apply relative text-gray-300 hover:text-white transition-colors duration-200
+         after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+         after:bg-fuchsia-500 after:transition-all after:duration-300
+         hover:after:w-full;
+}
+
+.nav-link.active {
+  @apply text-white after:w-full;
+}

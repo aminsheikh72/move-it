@@ -1,6 +1,7 @@
 const Booking = require("../models/bookingModel")
 const User = require("../models/userSchema")
 const Vehicle = require("../models/vehicleModel")
+const Comment = require("../models/commentSchema")
 
 const addVehicle=async(req,res)=>{
     const {name,rate,registration,isAvailable,description,capacity,image}= req.body
@@ -32,7 +33,7 @@ const removeVehicle=async(req,res)=>{
     })
 }
 const getAllBookings=async(req,res)=>{
-const bookings = await Booking.find().populate('vehicle')
+const bookings = await Booking.find().populate('vehicle').populate("user")
 if(!bookings){
     res.status(404)
     throw new Error("Booking not found")
@@ -55,9 +56,61 @@ if(!vehicles){
 }
 res.status(200).json(vehicles)
 }
-const updateBooking=async(req,res)=>{
 
-    const updatedBooking = await Booking.findByIdAndUpdate(req.params.bid,req.body,{new : true})
-    res.status(200).json(updatedBooking)
-}
-module.exports = {addVehicle,updateVehicle,removeVehicle,getAllBookings,getAllUsers,getAllVehicles,updateBooking}
+const updateBooking = async (req, res) => {
+  const { status } = req.body;
+
+  const updatedBooking = await Booking.findByIdAndUpdate(req.params.bid, req.body, { new: true });
+
+  if (!updatedBooking) {
+    res.status(400);
+    throw new Error("Booking not updated");
+  }
+
+  // Mark vehicle available if status is pending or completed
+  if (status === "pending" || status === "completed") {
+    await Vehicle.findByIdAndUpdate(updatedBooking.vehicle, {
+      isAvailable: "available",
+    });
+  }
+
+  //  Mark vehicle unavailable if booking is active
+  if (status === "in-progress") {
+    await Vehicle.findByIdAndUpdate(updatedBooking.vehicle, {
+      isAvailable: "unavailable",
+    });
+  }
+
+  // 🗑️ Auto delete booking if cancelled
+  if (status === "cancelled") {
+    await Vehicle.findByIdAndUpdate(updatedBooking.vehicle, {
+      isAvailable: true,
+    });
+
+    setTimeout(async () => {
+      try {
+        await Booking.findByIdAndDelete(req.params.bid);
+        console.log(`Booking ${req.params.bid} deleted after 1 minute`);
+      } catch (err) {
+        console.error("Error deleting cancelled booking:", err);
+      }
+    }, 60 * 1000); // 1 minute
+  }
+
+  res.status(200).json(updatedBooking);
+};
+
+const getAllComments = async (req, res) => {
+  const comments = await Comment.find()
+    .populate("user", "-password") // user details, exclude password
+    .populate("booking"); // full booking details
+
+  if (!comments || comments.length === 0) {
+    res.status(404);
+    throw new Error("Comments not found");
+  }
+
+  res.status(200).json(comments);
+};
+
+module.exports = {addVehicle,updateVehicle,removeVehicle,getAllBookings,getAllUsers,getAllVehicles,updateBooking,getAllComments}
