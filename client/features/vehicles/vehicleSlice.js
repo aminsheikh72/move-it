@@ -160,7 +160,7 @@ export const cancelBooking = createAsyncThunk(
   "CANCEL/BOOKING",
   async (bid, thunkAPI) => {
     try {
-      let token = thunkAPI.getState().auth.user.token;
+     let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
       return await vehicleService.cancelBookingByUser(token, bid);
     } catch (error) {
       const message =
@@ -177,7 +177,7 @@ export const getUserBooking = createAsyncThunk(
   "USER/BOOKING",
   async (uid, thunkAPI) => {
     try {
-      let token = thunkAPI.getState().auth.user.token;
+     let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
       return await vehicleService.getMyBooking(token, uid);
     } catch (error) {
       const message =
@@ -194,7 +194,7 @@ export const getUserComments = createAsyncThunk(
   "USER/COMMENTS",
   async (bookingId, thunkAPI) => {
     try {
-      let token = thunkAPI.getState().auth.user.token;
+      let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
       return await vehicleService.getCommentsByUser(token, bookingId);
     } catch (error) {
       const message =
@@ -211,7 +211,7 @@ export const bookVehicle = createAsyncThunk(
   "BOOK/VEHICLE",
   async (formData, thunkAPI) => {
     try {
-      let token = thunkAPI.getState().auth.user.token;
+    let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
       return await vehicleService.bookingUserVehicle(token, formData);
     } catch (error) {
       const message =
@@ -227,8 +227,7 @@ export const bookVehicle = createAsyncThunk(
 export const addComment = createAsyncThunk(
   "vehicle/addComment",
   async ({ bookingId, text }, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.user.token;
+let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
     const response = await vehicleService.addComment(token, bookingId, text);
     return { bookingId, comment: response }; // we'll use this in extraReducers
   }

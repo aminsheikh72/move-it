@@ -2,7 +2,7 @@ import axios from "axios"
 
 const api_url = "https://move-it-backend-hnht.onrender.com"
 const getUserSideVehicles=async()=>{
-    const response = await axios.get(api_url +'/api/vehicle')
+    const response = await axios.get(api_url + '/api/vehicle')
     
     return response.data
 }

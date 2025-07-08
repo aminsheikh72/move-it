@@ -176,7 +176,7 @@ export default adminSlice.reducer
 
 export const getAllUsers =createAsyncThunk("GET/USERS",async(_,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+       let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
        return await adminService.getUsers(token)
     } catch (error) {
          const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 
@@ -185,7 +185,7 @@ export const getAllUsers =createAsyncThunk("GET/USERS",async(_,thunkAPI)=>{
 })
 export const getAllBookings=createAsyncThunk("GET/BOOKINGS",async(_,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+       let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
         return await adminService.getBookings(token)
     } catch (error) {
           const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 
@@ -195,7 +195,7 @@ export const getAllBookings=createAsyncThunk("GET/BOOKINGS",async(_,thunkAPI)=>{
 })
 export const getAllAdminVehicles=createAsyncThunk("GET/ADMIN/VEHICLES",async(_,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+       let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
         return await adminService.getAdminVehicles(token)
     } catch (error) {
         const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 
@@ -205,7 +205,7 @@ export const getAllAdminVehicles=createAsyncThunk("GET/ADMIN/VEHICLES",async(_,t
 })
 export const updateAdminBooking=createAsyncThunk("UPDATE/BOOKING",async(formData,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+       let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
         return await adminService.updateBooking(token,formData)
     } catch (error) {
         const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 
@@ -216,7 +216,7 @@ export const updateAdminBooking=createAsyncThunk("UPDATE/BOOKING",async(formData
 
 export const updateVehicle=createAsyncThunk("UPDATE/VEHICLE",async(formData,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+        let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
         return await adminService.updateAdminVehicle(token,formData)
     } catch (error) {
         const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 
@@ -227,7 +227,7 @@ export const updateVehicle=createAsyncThunk("UPDATE/VEHICLE",async(formData,thun
 
 export const addVehicle=createAsyncThunk("ADD/VEHICLE",async(formData,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+       let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
         return await adminService.addAdminVehicle(token,formData)
     } catch (error) {
         const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 
@@ -238,7 +238,7 @@ export const addVehicle=createAsyncThunk("ADD/VEHICLE",async(formData,thunkAPI)=
 
 export const removeVehicle=createAsyncThunk("REMOVE/VEHICLE",async(id,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+      let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
         return await adminService.removeAdminVehicle(token,id)
     } catch (error) {
         const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 
@@ -249,7 +249,7 @@ export const removeVehicle=createAsyncThunk("REMOVE/VEHICLE",async(id,thunkAPI)=
 
 export const getAllComments=createAsyncThunk("GET/COMMENTS",async(_,thunkAPI)=>{
     try {
-        let token = thunkAPI.getState().auth.user.token
+       let token = thunkAPI.getState().auth?.user?.token || JSON.parse(localStorage.getItem("user"))?.token
         return await adminService.getAdminComments(token)
     } catch (error) {
         const message = error?.response?.data?.message || error.message ||  error?.response?.data?.msg || "Something went wrong" 

@@ -8,7 +8,7 @@ const getUsers=async(token)=>{
             Authorization : `Bearer ${token}`
         }
     }
-    const response = await axios.get(api_url +'/api/admin/get-users',options)   
+    const response = await axios.get(api_url + '/api/admin/get-users',options)   
     return response.data
 }
 const getBookings=async(token)=>{
@@ -17,7 +17,7 @@ const options ={
         Authorization : `Bearer ${token}`
     }
 }
-const response = await axios.get(api_url +'/api/admin/get-bookings',options)
+const response = await axios.get(api_url + '/api/admin/get-bookings',options)
 return response.data
 
 }
@@ -27,7 +27,7 @@ const options ={
         Authorization : `Bearer ${token}`
     }
 }
-const response = await axios.get(api_url +'/api/admin/get-vehicles',options)
+const response = await axios.get(api_url + '/api/admin/get-vehicles',options)
 return response.data
 
 }
@@ -37,7 +37,7 @@ const options ={
         Authorization : `Bearer ${token}`
     }
 }
-const response = await axios.get(api_url +'/api/admin/comments',options)
+const response = await axios.get(api_url + '/api/admin/comments',options)
 
 return response.data
 
@@ -61,7 +61,7 @@ const options ={
     }
 }
 
-const response = await axios.post(api_url +'/api/admin/add-vehicle',formData,options)
+const response = await axios.post(api_url + '/api/admin/add-vehicle',formData,options)
 return response.data
 
 }
