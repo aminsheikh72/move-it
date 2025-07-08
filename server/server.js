@@ -12,11 +12,18 @@ const PORT = process.env.PORT || 5000
 // connect db
 connectDB()
 
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://move-it-4zbb.vercel.app/" // replace with your real domain
+]
+
 app.use(cors({
-  origin: "http://localhost:5173/",
+  origin: allowedOrigins,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"]
 }));
+
 
 app.use(express.json())
 app.use(express.urlencoded())
