@@ -44,6 +44,12 @@ app.use('/api/admin', adminProtect, require('./routes/adminRoute'));
 app.use('/api/vehicle', require('./routes/vehicleRoutes'));
 app.use('/api/booking', require('./routes/bookingRoute'));
 
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.originalUrl}`);
+  next();
+});
+
+
 app.use(errorHandler);
 
 app.listen(PORT, () => 

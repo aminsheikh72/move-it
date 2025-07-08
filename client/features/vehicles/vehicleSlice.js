@@ -102,7 +102,7 @@ const vehicleSlice = createSlice({
           state.commentsByBookingId[bookingId] = [comment];
         }
       })
-      .addCase(addComment.rejected, (state) => {
+      .addCase(addComment.rejected, (state,action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

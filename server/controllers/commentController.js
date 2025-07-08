@@ -1,12 +1,13 @@
 const Comment = require("../models/commentSchema");
 
 const getComments = async (req, res) => {
-  const comments = await Comment.find({ booking: req.params.bid })
+  const comments = await Comment.find({ booking: req.params.bookingId }) // ✅ FIXED
     .populate("user", "-password")
     .populate("booking");
 
   res.status(200).json(comments);
 };
+
 
 const addComments = async (req, res) => {
   if (!req.body.text) {
@@ -16,7 +17,7 @@ const addComments = async (req, res) => {
 
   const newComment = await Comment.create({
     user: req.user._id,
-    booking: req.params.bid,
+    booking: req.params.bookingId, // ✅ FIXED
     text: req.body.text,
     isAdmin: req.body.isAdmin,
   });
@@ -32,5 +33,6 @@ const addComments = async (req, res) => {
 
   res.status(201).json(comment);
 };
+
 
 module.exports = { getComments, addComments };

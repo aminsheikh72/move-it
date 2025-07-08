@@ -44,12 +44,12 @@ async function getDistance(city1, city2) {
 const addBooking = async (req, res) => {
   try {
     console.log("User from token:", req.user); // Check if user exists
-    console.log("Vehicle ID:", req.params.vid);
+    console.log("Vehicle ID:", req.params.vehicleId);
     console.log("Request body:", req.body);
     
-    const vehicle = await Vehicle.findById(req.params.vid);
+    const vehicle = await Vehicle.findById(req.params.vehicleId);
     if (!vehicle) {
-      console.log("Vehicle not found for ID:", req.params.vid);
+      console.log("Vehicle not found for ID:", req.params.vehicleId);
       return res.status(400).json({ error: "Vehicle not found!!" });
     }
 
@@ -87,7 +87,7 @@ const addBooking = async (req, res) => {
 
 
 const getBooking = async(req,res)=>{
-    const booking = await Booking.find({user:req.params.uid}).populate("vehicle")
+    const booking = await Booking.find({user:req.params.userId}).populate("vehicle")
     if(!booking){
         res.status(404)
         throw new Error("Booking not found")
