@@ -1,20 +1,35 @@
+const axios = require("axios"); // <-- TOP par add karo
 const Booking = require("../models/bookingModel")
 const Vehicle = require("../models/vehicleModel")
 
-// Get Coordinates
+
+
 async function getCoordinates(city) {
-    const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`);
-    const data = await res.json();
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`;
+
+  try {
+    const res = await axios.get(url, {
+      headers: {
+        "User-Agent": "move-it-app/1.0" // ✅ Required by Nominatim to avoid HTML errors
+      }
+    });
+
+    const data = res.data;
 
     if (!data || data.length === 0) {
-        throw new Error(`Location not found for: ${city}`);
+      throw new Error(`Location not found for: ${city}`);
     }
 
     return {
-        lat: parseFloat(data[0].lat),
-        lon: parseFloat(data[0].lon),
+      lat: parseFloat(data[0].lat),
+      lon: parseFloat(data[0].lon),
     };
+  } catch (err) {
+    console.error("Error fetching coordinates:", err.response?.data || err.message);
+    throw new Error("Failed to fetch coordinates");
+  }
 }
+
 
 
 
