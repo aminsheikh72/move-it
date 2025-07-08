@@ -43,19 +43,25 @@ async function getDistance(city1, city2) {
 
 const addBooking = async (req, res) => {
   try {
+    console.log("User from token:", req.user); // Check if user exists
+    console.log("Vehicle ID:", req.params.vid);
+    console.log("Request body:", req.body);
+    
     const vehicle = await Vehicle.findById(req.params.vid);
     if (!vehicle) {
-      res.status(400);
-      throw new Error("Vehicle not found!!");
+      console.log("Vehicle not found for ID:", req.params.vid);
+      return res.status(400).json({ error: "Vehicle not found!!" });
     }
 
+    console.log("Vehicle found:", vehicle);
+    
     const { pickupLocation, dropLocation, weight } = req.body;
     if (!pickupLocation || !dropLocation || !weight) {
-      res.status(400);
-      throw new Error("Please fill all details!!!");
+      return res.status(400).json({ error: "Please fill all details!!!" });
     }
 
     const calculatedDistance = await getDistance(pickupLocation, dropLocation);
+    console.log("Calculated distance:", calculatedDistance);
 
     const newBooking = await Booking.create({
       user: req.user._id,
@@ -69,14 +75,11 @@ const addBooking = async (req, res) => {
       estimatedDeliveryTime: "1 day",
     });
 
-    if (!newBooking) {
-      res.status(400);
-      throw new Error("Vehicle not booked, Please try again!!");
-    }
-
+    console.log("New booking created:", newBooking);
     res.status(201).json(newBooking);
   } catch (error) {
     console.error("Booking creation error:", error.message);
+    console.error("Full error:", error);
     res.status(500).json({ error: error.message });
   }
 };

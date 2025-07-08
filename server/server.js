@@ -31,20 +31,26 @@ app.use(cors({
 }));
 
 
+// ✅ Parse incoming JSON and URL-encoded form data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.json())
-app.use(express.urlencoded())
+// ✅ Routes
+app.get("/", (req, res) => {
+  res.json({
+    msg: "Welcome to Move It app 🚛",
+  });
+});
 
-app.get('/',(req,res)=>{
-    res.json({
-        msg : "welcome to move it app"
-    })
-})
-app.use('/api/auth', require('./routes/authRoutes'))
-app.use('/api/admin',adminProtect,require('./routes/adminRoute'))
-app.use('/api/vehicle',require('./routes/vehicleRoutes'))
-app.use('/api/booking',protect,require('./routes/bookingRoute'))
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/admin", adminProtect, require("./routes/adminRoute"));
+app.use("/api/vehicle", require("./routes/vehicleRoutes"));
+app.use("/api/booking", protect, require("./routes/bookingRoute"));
 
-app.use(errorHandlere)
-app.listen(PORT, ()=> console.log(`SERVER IS RUNNING AT PORT :${PORT}`.bgGreen.white)
-)
+// ✅ Error Handler
+app.use(errorHandlere);
+
+// ✅ Start Server
+app.listen(PORT, () =>
+  console.log(`🚀 SERVER RUNNING AT PORT: ${PORT}`.bgGreen.white)
+);

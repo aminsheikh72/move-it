@@ -5,7 +5,7 @@ const router = express.Router()
 router.post('/:vid', protect  ,addBooking)
 router.get('/:uid', protect  ,getBooking)
 router.put('/:bid', protect  ,cancelBooking)
-router.use('/:bid/comment', protect  ,require("./commentRoute"))
+router.use('/:bid/comments', protect, require("./commentRoute"))
 
 
 

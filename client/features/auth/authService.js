@@ -5,10 +5,10 @@ const api_url = "https://move-it-backend-hnht.onrender.com"
 const register = async (formData) => {
   const response = await axios.post(api_url + '/api/auth/register', formData)
 
-  // ✅ Store user object
+  //  Store user object
   localStorage.setItem("user", JSON.stringify(response.data))
 
-  // ✅ Store token separately
+  //  Store token separately
   if (response.data?.token) {
     localStorage.setItem("token", response.data.token)
   }
@@ -19,10 +19,10 @@ const register = async (formData) => {
 const login = async (formData) => {
   const response = await axios.post(api_url + '/api/auth/login', formData)
 
-  // ✅ Store user object
+  //  Store user object
   localStorage.setItem("user", JSON.stringify(response.data))
 
-  // ✅ Store token separately
+  //  Store token separately
   if (response.data?.token) {
     localStorage.setItem("token", response.data.token)
   }

@@ -33,6 +33,8 @@ const options ={
     }
 }
 const response = await axios.post(`${api_url}/api/booking/${formData.id}`,formData.bookingData,options)
+console.log(response.data);
+
 return response.data
 
 }

@@ -24,7 +24,7 @@ const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
-        localStorage.setItem("token", action.payload.token) // ✅ SET token
+        localStorage.setItem("token", action.payload.token) //  SET token
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false
@@ -41,7 +41,7 @@ const authSlice = createSlice({
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
-        localStorage.setItem("token", action.payload.token) // ✅ SET token
+        localStorage.setItem("token", action.payload.token) // SET token
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false
@@ -51,7 +51,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null
-        localStorage.removeItem("token") // ✅ REMOVE token
+        localStorage.removeItem("token") //  REMOVE token
       })
   }
 })
@@ -89,5 +89,5 @@ export const loginUser = createAsyncThunk("AUTH/LOGIN", async (formData, thunkAP
 // Logout User
 export const logoutUser = createAsyncThunk("AUTH/LOGOUT", async () => {
   localStorage.removeItem("user")
-  localStorage.removeItem("token") // ✅ REMOVE token
+  localStorage.removeItem("token") //  REMOVE token
 })
