@@ -15,7 +15,7 @@ connectDB()
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://move-it-dun.vercel.app" // replace with your real domain
+  "https://move-it-aminsheikh72s-projects.vercel.app" // replace with your real domain
 ]
 
 app.use(cors({
