@@ -58,11 +58,11 @@ const GetVehicles = () => {
   useEffect(() => {
     dispatch(getUserVehicles());
   }, [dispatch]);
-  const getStatusColor = (available) => {
-  return available === "available"
-    ? "bg-green-500/20 text-green-400"
-    : "bg-blue-500/20 text-blue-400";
-};
+  const getStatusColor = (available = "") => {
+    return available.toLowerCase() === "available"
+      ? "bg-green-500/20 text-green-400"
+      : "bg-blue-500/20 text-blue-400";
+  };
 
   useEffect(() => {
     if (isError && message) {
@@ -122,10 +122,10 @@ const GetVehicles = () => {
             <div className="flex justify-between items-center">
               <span
                 className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                  vehicle.isAvailable
+                  vehicle?.isAvailable || "unknown"
                 )}`}
               >
-                {vehicle.isAvailable === "available" ? "Available" : "In Use"}
+                {vehicle?.isAvailable === "available" ? "Available" : "In Use"}
               </span>
 
               <button
