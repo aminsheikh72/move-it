@@ -15,14 +15,21 @@ connectDB()
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://move-it-aminsheikh72s-projects.vercel.app" // replace with your real domain
-]
+  "https://move-it-aminsheikh72s-projects.vercel.app"
+];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"]
 }));
+
 
 
 app.use(express.json())
