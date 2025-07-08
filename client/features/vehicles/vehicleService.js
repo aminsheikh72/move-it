@@ -9,7 +9,7 @@ const getUserSideVehicles=async()=>{
 const getMyBooking=async(token,uid)=>{
     const options ={
     headers : {
-        authorization : `Bearer ${token}`
+        Authorization : `Bearer ${token}`
     }
 }
     const response = await axios.get(`${api_url}/api/booking/${uid}`,options)
@@ -29,7 +29,7 @@ const getCommentsByUser = async (token, bid) => {
 const bookingUserVehicle=async(token,formData)=>{
 const options ={
     headers : {
-        authorization : `Bearer ${token}`
+        Authorization : `Bearer ${token}`
     }
 }
 const response = await axios.post(`${api_url}/api/booking/${formData.id}`,formData.bookingData,options)
@@ -53,7 +53,7 @@ const cancelBookingByUser = async (token, bid) => {
 const addComment = async (token, bookingId, text) => {
   const options = {
     headers: {
-      authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   };
   const response = await axios.post(
